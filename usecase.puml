@@ -3,35 +3,83 @@
 
 left to right direction
 
-actor "Guest" as guest
-actor "Student" as student
-actor "Administrator" as admin
+actor "Гість" as guest
+actor "Студент" as student
+actor "Абітурієнт" as applicant
+actor "Адміністратор" as admin
 
+applicant --|> guest
 student --|> guest
-admin --|> student
 
-rectangle "Anonymous university reviews" {
-    usecase "Read reviews" as readReviews
-    usecase "Read reviews about universities" as readUniversityReviews 
-    usecase "Read reviews about faculties" as readFacultyReviews     
-    usecase "Read reviews about dormatories" as readDormReviews
-    usecase "Read reviews about tutors" as readTutorReviews     
-    usecase "Read reviews about subjects" as readSubjectReviews    
+rectangle "Відгуки" {
+    usecase "Читати усі відгуки" as readReviews
 
-    usecase "Create reviews" as createReviews
+    usecase "Залишати відгуки" as createReview
 
-    usecase "Edit reviews" as editReviews
+    usecase "Редагувати свій відгук" as editReview
+
+    usecase "Видалити свій відгук" as deleteReview
+
+    usecase "Лайкнути / дизлайкнути відгук" as rateReview
+
+    usecase "Поскаржитись на відгук" as reportReview
+
+    usecase "Модерувати відгуки" as moderateReviews
 }
 
-readUniversityReviews .> readReviews : extends
-readFacultyReviews .> readReviews : extends
-readDormReviews .> readReviews : extends
-readTutorReviews .> readReviews : extends
-readSubjectReviews .> readReviews : extends
+guest --> readReviews
+student --> createReview
+student --> editReview
+student --> deleteReview
+applicant --> rateReview
+student --> rateReview
+admin --> moderateReviews
+student --> reportReview
+applicant --> reportReview 
 
-guest -> readReviews
+rectangle "Міні соцмережа для студентів" {
+    usecase "Оублікувати пост" as createPost
 
-student -> createReviews
-student -> editReviews
+    usecase "Регадувати свій пост" as editPost
+
+    usecase "Видалити свій пост" as deletePost
+
+    usecase "Лайкнути / дизлайкнути пост" as ratePost
+
+    usecase "Залишати коментарі під постами" as createComment
+
+    usecase "Лайкнути / дизлайкнути коментар" as rateComment
+
+    usecase "Поскаржитись на пост" as reportPost
+
+    usecase "Створювати опитування для студентів" as createPoll
+
+    usecase "Голосувати в опитуванні" as vote
+}
+
+student --> createPost
+student --> editPost
+student --> deletePost
+student --> createComment
+student --> vote
+student --> rateComment
+student --> ratePost
+student --> reportPost
+admin --> createPoll
+
+rectangle "Сервіс для абітурієнтів" {
+    usecase "Читати інформацію про університети" as readUniversities
+
+    usecase "Порівняння університетів" as compareEntities
+
+    usecase "Підібрати університет за критеріями" as getUniversityRecommendations
+
+    usecase "Адмініструвати інформацію про університети" as moderateUniveristyInfo
+}
+
+guest --> readUniversities
+applicant --> compareEntities
+applicant --> getUniversityRecommendations
+admin --> moderateUniveristyInfo
 
 @enduml
