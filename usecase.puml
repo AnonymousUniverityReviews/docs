@@ -1,0 +1,37 @@
+@startuml
+!theme plain
+
+left to right direction
+
+actor "Guest" as guest
+actor "Student" as student
+actor "Administrator" as admin
+
+student --|> guest
+admin --|> student
+
+rectangle "Anonymous university reviews" {
+    usecase "Read reviews" as readReviews
+    usecase "Read reviews about universities" as readUniversityReviews 
+    usecase "Read reviews about faculties" as readFacultyReviews     
+    usecase "Read reviews about dormatories" as readDormReviews
+    usecase "Read reviews about tutors" as readTutorReviews     
+    usecase "Read reviews about subjects" as readSubjectReviews    
+
+    usecase "Create reviews" as createReviews
+
+    usecase "Edit reviews" as editReviews
+}
+
+readUniversityReviews .> readReviews : extends
+readFacultyReviews .> readReviews : extends
+readDormReviews .> readReviews : extends
+readTutorReviews .> readReviews : extends
+readSubjectReviews .> readReviews : extends
+
+guest -> readReviews
+
+student -> createReviews
+student -> editReviews
+
+@enduml
