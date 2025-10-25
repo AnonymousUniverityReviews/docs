@@ -5,6 +5,7 @@
 
 ## Основні елементи
 - Хедер
+    - Перейти до Створення відгука
 - Секції для кожної категорії відгуків, будуть посилання, щоб перейти на відповідну сторінку
     - Відгуки на універи [university_reviews.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/reviews/university_reviews.md)
     - Відгуки на гурожитки [dorm_reviews.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/reviews/dorm_reviews.md)
