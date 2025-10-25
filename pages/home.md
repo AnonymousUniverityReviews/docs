@@ -10,7 +10,6 @@
         - Кнопка щоб зарегатись [register.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/register.md)
         - Кнопка щоб увійти в акаунт [login.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/login.md)
         - Кнопка для перегляду преміум планів [pricing.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/pricing.md)
-        - Кнопка для заявки на додавання універу в систему [suggest_univesity.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/suggest_univesity.md)
 - Якась крута верхня секція з назвою проєкту + крутий слоган + логотип
     - кпопочки типу я студент або я абітурієнт
 - Секції з описом різних частин сайту і посилання на них
