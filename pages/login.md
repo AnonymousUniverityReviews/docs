@@ -8,6 +8,6 @@
 - Поле для пошти
 - Поле для пароля
 - Кнопочка увійти
-- Кнопочка типу "Немає акаунта? Зареєструватись" [register.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/register.md)
+- Кнопочка типу "Немає акаунта? Зареєструватись" [register.md](register.md)
 - Кнопочка “Забули пароль?”
 - Футер
