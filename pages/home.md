@@ -13,7 +13,7 @@
 - Якась крута верхня секція з назвою проєкту + крутий слоган + логотип
     - кпопочки типу я студент або я абітурієнт
 - Секції з описом різних частин сайту і посилання на них
-    - Перейти до каталогу універів [university_catalog.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/university_catalog.md)
+    - Перейти до каталогу універів [university_catalog.md](https://github.com/AnonymousUniverityReviews/docs/blob/main/pages/university-catalog.md)
     - Перейти до вігуків
     - Перейти до студентської соцмережі
 - Футер
