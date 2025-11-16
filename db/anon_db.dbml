@@ -1,0 +1,133 @@
+Table universities {
+  id integer [pk, increment]
+  name varchar [not null]
+  city varchar
+  website varchar
+  created_at timestamp
+}
+
+Table allowed_email_domains { 
+  id integer [pk, increment]
+  university_id integer [not null, ref: > universities.id]
+  domain varchar [not null]
+  created_at timestamp
+
+  indexes {
+    (university_id, domain) [unique, name: 'uq_uni_domain']
+  }
+}
+
+Table faculties {
+  id integer [pk, increment]
+  university_id integer [not null, ref: > universities.id]
+  name varchar [not null]
+  created_at timestamp
+}
+
+Table departments {
+  id integer [pk, increment]
+  faculty_id integer [not null, ref: > faculties.id]
+  name varchar [not null]
+  created_at timestamp
+}
+
+Table teachers {
+  id integer [pk, increment]
+  department_id integer [not null, ref: > departments.id]
+  full_name varchar [not null]
+  created_at timestamp
+}
+
+Table courses {
+  id integer [pk, increment]
+  department_id integer [not null, ref: > departments.id]
+  title varchar [not null]
+  code varchar
+  created_at timestamp
+}
+
+Table course_offerings { 
+  id integer [pk, increment]
+  course_id integer [not null, ref: > courses.id]
+  faculty_id integer [ref: > faculties.id] 
+  semester varchar
+  year integer
+  created_at timestamp
+
+  indexes {
+    (course_id, year, semester) [name: 'idx_offerings_course_term']
+  }
+}
+
+Table course_offering_teachers {
+  course_offering_id integer [not null, ref: > course_offerings.id]
+  teacher_id integer [not null, ref: > teachers.id]
+  created_at timestamp
+
+  indexes {
+    (course_offering_id, teacher_id) [unique, name: 'uq_offering_teacher']
+    (teacher_id)                      [name: 'idx_cot_teacher']
+  }
+}
+
+Table users { 
+  id integer [pk, increment]
+  university_id integer [not null, ref: > universities.id]
+  user_key varchar [not null, unique, note: 'pseudonymous key (salted hash of email)']
+  status varchar
+  created_at timestamp
+}
+
+Table magic_link_tokens {
+  id integer [pk, increment]
+  user_id integer [ref: > users.id, note: 'nullable until confirmed']
+  email varchar [note: 'store hashed/encrypted if possible']
+  token varchar [not null, unique]
+  expires_at timestamp
+  used_at timestamp
+  created_at timestamp
+}
+
+Enum review_category {
+  UNIVERSITY
+  FACULTY
+  TEACHER
+  COURSE
+  COURSE_OFFERING
+}
+
+Table reviews {
+  id integer [pk, increment]
+  category review_category [not null]
+
+  university_id integer       [ref: > universities.id]
+  faculty_id integer          [ref: > faculties.id]
+  teacher_id integer          [ref: > teachers.id]
+  course_id integer           [ref: > courses.id]
+  course_offering_id integer  [ref: > course_offerings.id]
+
+  rating_overall smallint
+  ratings_json text     [note: 'structured per-criterion ratings as JSON']
+  body text             [note: 'review text']
+  status varchar
+  created_at timestamp
+
+  indexes {
+    (university_id)       [name: 'idx_reviews_university']
+    (faculty_id)          [name: 'idx_reviews_faculty']
+    (teacher_id)          [name: 'idx_reviews_teacher']
+    (course_id)           [name: 'idx_reviews_course']
+    (course_offering_id)  [name: 'idx_reviews_course_offering']
+    (created_at)          [name: 'idx_reviews_created_at']
+  }
+}
+
+Table abuse_reports {
+  id integer [pk, increment]
+  review_id integer [not null, ref: > reviews.id]
+  reporter_user_id integer [ref: > users.id, note: 'nullable — allow anonymous reports']
+  reason_code varchar
+  details text
+  status varchar
+  created_at timestamp
+}
